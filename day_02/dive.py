@@ -3,7 +3,7 @@
 import pandas as pd
 
 
-class sub_instructions():
+class SubInstructions():
     """
     Takes an input direction file and calculates the product of
     the forward and downwards movement
