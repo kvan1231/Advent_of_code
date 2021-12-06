@@ -26,8 +26,8 @@ class BingoBoard():
 
     Inputs
     ------
-    file_name : string
-        The name of the input file to be read in
+    input_board : DataFrame
+        The bingo board to be contained
     """
 
     # Keep track of last number drawn
