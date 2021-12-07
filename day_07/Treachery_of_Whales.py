@@ -61,7 +61,7 @@ class CrabSubmarine():
         mean_pos = int(init_pos_df.mean())
 
         # calculate the absolute difference between the init and mean
-        pos_diff_grow = cost(abs(init_pos_df - mean_pos))
+        pos_diff_grow = self.cost(abs(init_pos_df - mean_pos))
 
         # return the sum of the position differences
         tot_cost_grow = int(pos_diff_grow.sum())
@@ -71,13 +71,13 @@ class CrabSubmarine():
 
         # Check other values to be sure
         for midpoint in range(min_crab, max_crab+1):
-            temp_diff = cost(abs(init_pos_df - midpoint))
+            temp_diff = self.cost(abs(init_pos_df - midpoint))
             temp_tot = int(temp_diff.sum())
             tot_cost_grow = min(
                 tot_cost_grow, temp_tot
             )
         print(tot_cost_grow)
-        
+
     def cost(self, move):
         """
         A function that calculates the total cost
