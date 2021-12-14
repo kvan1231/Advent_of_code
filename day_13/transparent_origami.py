@@ -71,16 +71,16 @@ def fold_paper(paper, axis, position):
         # top portion
         init_paper = paper[:position, :]
         # bottom portion
-        flipped_paper = paper[2*position:position:-1, :]
-        
+        flipped_paper = paper[position + 1:2 * position + 1, :]
+
     if axis == 1:
         # left portion
         init_paper = paper[:, :position]
         # right portion
-        flipped_paper = paper[:, 2*position:position:-1]
+        flipped_paper = paper[:, position + 1: 2 * position + 1]
 
     # fold the paper using np.flip
-    folded_paper = init_paper | flipped_paper
+    folded_paper = init_paper | np.flip(flipped_paper, axis=axis)
     return folded_paper
 
 
@@ -93,7 +93,7 @@ def solve_part_1():
     single_fold = fold_paper(paper, fold_axis, fold_pos)
 
     part_1_dots = single_fold.sum()
-    
+
     print("part 1 solution:", part_1_dots)
 
 
