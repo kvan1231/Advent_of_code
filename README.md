@@ -1,2 +1,2 @@
-# Advent_of_code_2021
-My attempts at the Advent of Code challenges for 2021
+# Advent_of_Code
+My attempts at the Advent of Code challenges
