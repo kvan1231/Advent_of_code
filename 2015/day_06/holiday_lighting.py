@@ -54,5 +54,3 @@ inc_lights = light_sim(part=2)
 light_brightness = inc_lights.sum().sum()
 print("Part 2: ", light_brightness)
 
-
-
