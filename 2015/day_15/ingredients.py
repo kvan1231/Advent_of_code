@@ -2,8 +2,6 @@
 
 import re
 import numpy as np
-from functools import reduce
-from operator import mul
 
 
 def read_data(input_file='test.txt'):
