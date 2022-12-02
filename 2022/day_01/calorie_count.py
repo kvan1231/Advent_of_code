@@ -25,7 +25,8 @@ class ElfCalories():
         with open(file_name, 'r') as f:
             raw_data = f.read()
 
-        # split the data into individual elves where there are double line breaks
+        # split the data into individual elves where there are double line
+        # breaks
         elf_split = raw_data.split('\n\n')
 
         # split each elf into calorie values
@@ -35,7 +36,6 @@ class ElfCalories():
         cal_df = pd.DataFrame(cal_split).fillna(0).astype('int').T
 
         self.cal_df = cal_df
-
 
     def find_top_cals(self, n: int = 3) -> int:
         """
@@ -67,3 +67,11 @@ class ElfCalories():
         combined_cals = sum(top_cals)
 
         return combined_cals
+
+
+def solution():
+    pt1_sol = ElfCalories('input.txt').find_top_cals(n=1)
+    pt2_sol = ElfCalories('input.txt').find_top_cals(n=3)
+
+    print("part 1 sol:", pt1_sol)
+    print("part 2 sol:", pt2_sol)
