@@ -9,7 +9,7 @@ class ElfCalories():
     the different elves
     """
 
-    def __init__(self, file_name: str = "test.txt") -> pd.DataFrame:
+    def __init__(self, file_name: str = "test.txt"):
         """
         This function reads in a text file that contains a list of integers and
         line breaks as a pandas series.

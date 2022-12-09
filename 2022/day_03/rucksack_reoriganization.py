@@ -9,7 +9,7 @@ class Rucksack():
     rucksack
     """
 
-    def __init__(self, file_name: str = "test.txt") -> list:
+    def __init__(self, file_name: str = "test.txt") -> None:
         """
         This function reads in the text file that contains the rucksack items
 
@@ -35,12 +35,11 @@ class Rucksack():
         # store it
         self.letter_dict = letter_dict
 
-
     def part1(self) -> int:
         """
         Splits the lines at the halfway point, determines the common letter
         and maps this letter to a number, finds the sum and returns it
-        """ 
+        """
 
         rucksack = self.rucksack
         letter_dict = self.letter_dict
@@ -101,5 +100,3 @@ def solution():
 
     print("part 1 sol:", pt1_sol)
     print("part 2 sol:", pt2_sol)
-
-

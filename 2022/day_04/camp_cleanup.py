@@ -9,7 +9,7 @@ class Sections():
     assigned to clean
     """
 
-    def __init__(self, file_name: str = "test.txt") -> list:
+    def __init__(self, file_name: str = "test.txt") -> None:
         """
         This function reads in the text file that contains the sections items
 
@@ -61,17 +61,19 @@ class Sections():
 
             # if we're solving for part 1 then look for complete overlaps
             if pt == 1:
-                if all(np.in1d(array1, array2)) or all(np.in1d(array2, array1)):
+                if all(np.in1d(array1, array2)) or \
+                        all(np.in1d(array2, array1)):
                     pair_count += 1
 
             # if we're solving for part 2 then look for partial overlaps
             elif pt == 2:
-                if any(np.in1d(array1, array2)) or any(np.in1d(array2, array1)):
+                if any(np.in1d(array1, array2)) or \
+                        any(np.in1d(array2, array1)):
                     pair_count += 1
 
         return pair_count
 
-    
+
 def solution():
     pt1_sol = Sections('input.txt').solution(pt=1)
     pt2_sol = Sections('input.txt').solution(pt=2)
