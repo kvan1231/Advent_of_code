@@ -10,7 +10,7 @@ class Stacks():
     initial stack setup and the instructions
     """
 
-    def __init__(self, file_name: str = "test.txt") -> list:
+    def __init__(self, file_name: str = "test.txt") -> None:
         """
         This function reads in the text file that contains the stacks and the
         instructions

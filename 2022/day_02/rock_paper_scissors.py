@@ -9,7 +9,7 @@ class RPS():
     rounds
     """
 
-    def __init__(self, file_name: str = "test.txt") -> pd.DataFrame:
+    def __init__(self, file_name: str = "test.txt"):
         """
         This function reads in the text file that contains the rounds
 

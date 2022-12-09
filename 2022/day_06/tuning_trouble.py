@@ -6,7 +6,7 @@ class Signal():
     This class will contain a string representing a signal sequence
     """
 
-    def __init__(self, file_name: str = "test.txt") -> list:
+    def __init__(self, file_name: str = "test.txt") -> None:
         """
         This function reads in the text file that contains the signal
 
@@ -45,5 +45,3 @@ def solution():
 
     print("part 1 sol:", pt1_sol)
     print("part 2 sol:", pt2_sol)
-
-
