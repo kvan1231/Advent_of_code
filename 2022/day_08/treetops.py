@@ -79,7 +79,6 @@ class Trees():
 
 def solution():
     pt1_sol, pt2_sol = Trees('input.txt').visible_tree_count()
-    
+
     print("part 1 sol:", pt1_sol)
     print("part 2 sol:", pt2_sol)
-
