@@ -109,6 +109,7 @@ class Cycle():
 
         return total_output
 
+
 def solution():
     pt1_sol, pt2_sol = Cycle('input.txt').signal_output()
 
