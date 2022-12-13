@@ -88,7 +88,7 @@ class Monkey():
             number from blowing up we're going to take the modulus of the item
             number with respect to the product of ALL of the monkeys divisors.
             This will prevent the item value from growing too large.
-        
+
         Returns
         -------
         monkey_business: int
