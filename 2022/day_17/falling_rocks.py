@@ -18,11 +18,11 @@ class FallingRocks:
         """
 
         self.rock_shapes = [
-            [(0, 0), (1, 0), (2, 0), (3, 0)],
-            [(0, 0), (1, 0), (1, 1), (2, 1), (1, 2)],
-            [(0, 0), (1, 0), (2, 0), (2, 1), (2, 2)],
-            [(0, 0), (1, 0), (2, 0), (3, 0)],
-            [(0, 0), (1, 0), (1, 1), (1, 2)],
+            [0, 1, 2, 3],
+            [1, 1j, 1 + 1j, 2 + 1j, 1 + 2j],
+            [0, 1, 2, 2 + 1j, 2 + 2j],
+            [0, 1j, 2j, 3j],
+            [0, 1, 1j, 1 + 1j],
         ]
 
         with open(file_name) as f:
@@ -32,7 +32,7 @@ class FallingRocks:
 
         # The ground is represented as a set of tuples with a y coordinate of
         # -1
-        self.ground = {(x, -1) for x in range(7)}
+        self.ground = {x - 1j for x in range(7)}
 
         # The current height of the rock is initialized to zero
         self.rock_height = 0
@@ -41,54 +41,184 @@ class FallingRocks:
         self.rock_count = 0
 
         # The index of the current rock shape in the rock_shapes list
-        self.rock_shape_index = 0
+        self.rock_shapes_index = 0
 
         # Store the rock positions as a set of tuples
-        self.rock_positions = set(self.rock_shapes[self.rock_shape_index])
-
-    def step(self):
-        # Move the rock according to the movement_pattern
-        moved_rock_positions = {
-            (
-                x + self.movement_pattern[
-                    self.rock_count % len(self.movement_pattern)
-                ], y
-                ) for x, y in self.rock_positions
+        self.rock = {
+            x + 2 + (self.rock_height + 3) * 1j for x in
+            self.rock_shapes[self.rock_shapes_index]
         }
 
-        # If the moved rock is within the bounds of the game and does not
-        # collide with the ground, update the rock_positions
-        if all(0 <= x < 7 for x, _ in moved_rock_positions) and not \
-            (moved_rock_positions & self.ground):
-            self.rock_positions = moved_rock_positions
+    def part1_sim(self, num_steps: int = 2022) -> int:
+        """
+        Simulates the rocks falling in part 1 of the advent of code problem
+        based on the number of steps required
+        """
 
-        # Otherwise, move the rock down one unit
-        else:
-            moved_rock_positions = {(x, y - 1) for x, y in self.rock_positions}
-            # If the rock collides with the ground, add it to the ground and
-            # update the rock_height
+        # initialize
+        rock_shapes = self.rock_shapes
+        movement_pattern = self.movement_pattern
 
-            if moved_rock_positions & self.ground:
-                self.ground |= self.rock_positions
-                self.rock_count += 1
-                self.rock_height = max(y for _, y in self.ground) + 1
+        ground = self.ground
+        height = self.rock_height
+        rock_count = self.rock_count
 
-                # Select the next rock shape and reset the rock_positions
-                self.rock_shape_index = (self.rock_shape_index + 1) % 5
+        rock_index = self.rock_shapes_index
+        rock = self.rock
 
-                self.rock_positions = set(
-                    self.rock_shapes[self.rock_shape_index]
-                    )
-            # If the rock does not collide with the ground, update the
-            # rock_positions
-            else:
-                self.rock_positions = moved_rock_positions
+        # loop through the sim
+        while rock_count < num_steps:
 
-# Create a RockGame object with the given rock shapes and movement pattern
-pt1_sim = FallingRocks()
+            # loop through the moves
+            for move in movement_pattern:
+
+                # Move the rock according to the movement_pattern
+                moved = {x + move for x in rock}
+
+                # If the moved rock is within the bounds of the game and does
+                # not collide with the ground, update the rock_positions
+                if all(0 <= x.real < 7 for x in moved) and not \
+                        (moved & ground):
+                    rock = moved
+
+                # new position
+                moved = {x - 1j for x in rock}
+
+                # check if collide with ground
+                if moved & ground:
+                    ground |= rock
+                    rock_count += 1
+                    height = max(x.imag for x in ground) + 1
+
+                    # break once we've simulated enough
+                    if rock_count >= num_steps:
+                        break
+
+                    # update to next rock
+                    rock_index = (rock_index + 1) % 5
+
+                    rock = {
+                        x + 2 + (height + 3) * 1j for x in
+                        rock_shapes[rock_index]
+                    }
+
+                # If the rock does not collide with the ground, update the
+                # rock_positions
+                else:
+                    rock = moved
+
+        # return the height
+        return int(height)
+
+    def part2_sim(self, num_steps: int = 1000000000000) -> int:
+        """
+        Simulates the rocks falling in part 2 of the advent of code problem
+        based on the number of steps required. Due to the sheer number of steps
+        we cant brute force it. Following Hyperneutrino's tutorial he noticed
+        that there is a pattern in the output so by finding that pattern and
+        storing it somewhere we can cut down on the required compute power
+        """
+
+        # initialize
+        rock_shapes = self.rock_shapes
+        movement_pattern = self.movement_pattern
+
+        ground = self.ground
+        height = self.rock_height
+        rock_count = self.rock_count
+
+        rock_index = self.rock_shapes_index
+        rock = self.rock
+
+        offset = 0
+        seen_states = {}
+
+        # loop through the sim
+        while rock_count < num_steps:
+
+            # loop through the moves
+            for move_ind, move in enumerate(movement_pattern):
+
+                # Move the rock according to the movement_pattern
+                moved = {x + move for x in rock}
+
+                # If the moved rock is within the bounds of the game and does
+                # not collide with the ground, update the rock_positions
+                if all(0 <= x.real < 7 for x in moved) and not \
+                        (moved & ground):
+                    rock = moved
+
+                # new position
+                moved = {x - 1j for x in rock}
+
+                # check if collide with ground
+                if moved & ground:
+                    ground |= rock
+                    rock_count += 1
+                    height = max(x.imag for x in ground) + 1
+
+                    # break once we've simulated enough
+                    if rock_count >= num_steps:
+                        break
+
+                    # update to next rock
+                    rock_index = (rock_index + 1) % 5
+
+                    rock = {
+                        x + 2 + (height + 3) * 1j for x in
+                        rock_shapes[rock_index]
+                    }
+
+                    # create this new key
+                    key = (move_ind, rock_index, self._summarize())
+
+                    # if we've seen this config
+                    if key in seen_states:
+
+                        # get the previous values
+                        last_rock_count, last_height = seen_states[key]
+
+                        # find the remaining steps
+                        remain = num_steps - rock_count
+
+                        # find the repititions by determining the cycle size
+                        reps = remain // (rock_count - last_rock_count)
+
+                        # calculate the offset using height gained in a cycle
+                        offset = reps * (height - last_height)
+
+                        # make a jump in rock count based on the cycle size
+                        rock_count += reps * (rock_count - last_rock_count)
+                        seen_states = {}
+                    # add it to seen states
+                    seen_states[key] = (rock_count, height)
+
+                # If the rock does not collide with the ground, update the
+                # rock_positions
+                else:
+                    rock = moved
+
+        # return the height
+        return int(height + offset)
+
+    def _summarize(self):
+
+        ground = self.ground
+        # check the last 20 values
+        old = [-20] * 7
+
+        for x in ground:
+            real = int(x.real)
+            imag = int(x.imag)
+            old[real] = max(old[real], imag)
+
+        top = max(old)
+        return tuple(x - top for x in old)
 
 
-# Step the game 2022 times
-for _ in range(2022):
-    pt1_sim.step()
-    print(pt1_sim.rock_height)
+def solution():
+    pt1_sol = FallingRocks('input.txt').part1_sim()
+    pt2_sol = FallingRocks('input.txt').part2_sim()
+
+    print("part 1 sol:", pt1_sol)
+    print("part 2 sol:", pt2_sol)
