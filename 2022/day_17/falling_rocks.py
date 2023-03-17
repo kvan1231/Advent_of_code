@@ -1,4 +1,4 @@
-# https://adventofcode.com/2022/day/16
+# https://adventofcode.com/2022/day/17
 
 
 class FallingRocks:
