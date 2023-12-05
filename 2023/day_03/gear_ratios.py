@@ -4,7 +4,7 @@ class Schematic():
     """
     Class representing the gondola schematic diagram
     """
-    def __init__(self, input_file:str ='input.txt') -> None:
+    def __init__(self, input_file:str = 'input.txt') -> None:
         """
         Takes the input text file and converts it into a grid
         containing all of the numbers and symbols in the schematic.
