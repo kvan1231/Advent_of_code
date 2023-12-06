@@ -22,7 +22,7 @@ class Schematic():
         # store it
         self.schematic_grid = schematic_grid
 
-    def Sum_Parts(self) -> int:
+    def sum_parts(self) -> int:
         """
         Scans through the coordinates of the numbers adjacent
         to the symbols and sums up the parts numbers found
@@ -83,7 +83,7 @@ class Schematic():
 
         return sum(parts_list)
                 
-    def Gear_Ratios(self) -> int:
+    def gear_ratios(self) -> int:
         """
         Finds the locations of the gears denoted by * and calculates
         the product of the two numbers adjacent to produce a gear ratio.
@@ -160,8 +160,8 @@ def solution():
     """
     Summary output function that spits out the solutions
     """
-    pt1_sol = Schematic('input.txt').Sum_Parts()
-    pt2_sol = Schematic('input.txt').Gear_Ratios()
+    pt1_sol = Schematic('input.txt').sum_parts()
+    pt2_sol = Schematic('input.txt').gear_ratios()
 
     print("part 1 sol:", pt1_sol)
     print("part 2 sol:", pt2_sol)
