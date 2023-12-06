@@ -32,7 +32,7 @@ class Scratchcard():
         self.scratch_data = scratch_data
         self.winning_nums = winning_nums
 
-    def Scratch_Points(self) -> int:
+    def scratch_points(self) -> int:
         """
         Calculates the total points the scratch cards are worth given
         by SUM(2^(num matches - 1))
@@ -64,7 +64,7 @@ class Scratchcard():
 
         return total_pts
     
-    def Total_Cards(self) -> int:
+    def total_cards(self) -> int:
         """
         Calculates the total number of scratch cards. This number is calculated
         by determining the number of winning numbers (N) in the current card and
@@ -96,8 +96,8 @@ def solution():
     """
     Summary output function that spits out the solutions
     """
-    pt1_sol = Scratchcard('input.txt').Scratch_Points()
-    pt2_sol = Scratchcard('input.txt').Total_Cards()
+    pt1_sol = Scratchcard('input.txt').scratch_points()
+    pt2_sol = Scratchcard('input.txt').total_cards()
 
     print("part 1 sol:", pt1_sol)
     print("part 2 sol:", pt2_sol)
