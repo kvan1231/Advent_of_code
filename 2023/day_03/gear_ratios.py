@@ -17,7 +17,7 @@ class Schematic():
         """
 
         # read in the grid
-        schematic_grid = open(input_file, "r").read().splitlines()
+        schematic_grid = open(input_file, "r", encoding="utf-8").read().splitlines()
 
         # store it
         self.schematic_grid = schematic_grid
@@ -43,7 +43,7 @@ class Schematic():
         # loop through the rows and columns to find a symbol
         for row_ind, row in enumerate(schematic_grid):
             for col_ind, character in enumerate(row):
-                
+
                 # check if the character is a digit (not a symbol)
                 if character.isdigit() or character == ".":
                     continue
@@ -82,7 +82,7 @@ class Schematic():
             parts_list.append(int(part_string))
 
         return sum(parts_list)
-                
+
     def gear_ratios(self) -> int:
         """
         Finds the locations of the gears denoted by * and calculates
@@ -102,11 +102,11 @@ class Schematic():
         # loop through the rows and columns to find a symbol
         for row_ind, row in enumerate(schematic_grid):
             for col_ind, character in enumerate(row):
-                
+
                 # check if the character is a gear
                 if character != "*":
                     continue
-                
+
                 # initialize a temporary set for when we encounter a gear
                 temp_gear_set = set()
 

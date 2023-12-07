@@ -1,6 +1,5 @@
 """ https://adventofcode.com/2023/day/6 """
 
-import math
 
 class BoatRace():
     """
@@ -18,7 +17,8 @@ class BoatRace():
         """
 
         # read in the raw data
-        raw_times, raw_dists = open(input_file).read().split('\n')
+        raw_times, raw_dists = open(
+            input_file, 'r', encoding="utf-8").read().split('\n')
 
         # clean the data up and convert to ints
         time_vals = list(map(int,raw_times.split(":")[1].split()))
@@ -75,7 +75,7 @@ class BoatRace():
         win_prod = 1
 
         # loop through races
-        for race_ind in range(len(time_vals)):
+        for race_ind in enumerate(time_vals):
 
             time = time_vals[race_ind]
             dist = dist_vals[race_ind]

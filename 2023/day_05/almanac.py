@@ -18,13 +18,13 @@ class Almanac():
         """
 
         # Read in the data
-        seeds, *maps = open(input_file).read().split('\n\n')
+        seeds, *maps = open(input_file, encoding="utf-8").read().split('\n\n')
 
         # split the seeds into a list
         seed_list = list(
             map(int, seeds.split(":")[1].strip().split())
             )
-        
+
         self.seed_list = seed_list
         self.maps = maps
 
@@ -61,7 +61,7 @@ class Almanac():
                     if srs <= seed < srs + rl:
                         temp_map.append(seed - srs + drs)
                         break
-                
+
                 else:
                     temp_map.append(seed)
             seed_list = temp_map
@@ -143,4 +143,3 @@ def solution():
 
     print("part 1 sol:", pt1_sol)
     print("part 2 sol:", pt2_sol)
-
