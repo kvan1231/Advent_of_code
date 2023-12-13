@@ -82,3 +82,13 @@ class Oasis():
             total_val += self._extrapolate(row, part1)
 
         return total_val
+
+def solution():
+    """
+    Summary output function that spits out the solutions
+    """
+    pt1_sol = Oasis('input.txt').calculate_sum()
+    pt2_sol = Oasis('input.txt').calculate_sum(part1=False)
+
+    print("part 1 sol:", pt1_sol)
+    print("part 2 sol:", pt2_sol)
