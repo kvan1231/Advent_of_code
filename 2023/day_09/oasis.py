@@ -8,7 +8,7 @@ class Oasis():
 
     def __init__(self, input_file:str = "input.txt") -> None:
         """
-        Reads in the inpout file that contains the oasis number values
+        Reads in the input file that contains the oasis number values
         
 
         Args:
