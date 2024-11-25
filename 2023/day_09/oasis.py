@@ -60,7 +60,7 @@ class Oasis():
         if part1:
             return num_row[-1] + next_row
         else:
-            return num_row[0] - next_row            
+            return num_row[0] - next_row
 
     def calculate_sum(self, part1:bool=True) -> int:
         """
