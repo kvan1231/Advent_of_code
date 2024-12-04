@@ -4,14 +4,22 @@ import re
 
 raw_data = open("input.txt", 'r', encoding='utf-8').read()
 
-ignored_pattern = r"don't\(\).*?do\(\)"
-cleaned_string = re.sub(ignored_pattern, "", raw_data)
+mul_pattern = r"mul\(\d{1,3},\d{1,3}\)"
+do_pattern = r"do\(\)|don't\(\)"
 
-pattern = r"mul\((\d+),(\d+)\)"
+combined_pattern = f"{do_pattern}|{mul_pattern}"
+matches = re.findall(combined_pattern, raw_data)
 
-matches = re.findall(pattern, cleaned_string)
-# print(matches)
+do_bool = True
+output = 0
 
-products = [int(a) * int(b) for a, b in matches]
+for match in matches:
+    if match == "do()":
+        do_bool = True
+    elif match == "don't()":
+        do_bool = False
+    elif do_bool:
+        x, y = map(int, match[4:-1].split(","))
+        output += x * y
 
-print(sum(products))
+print(output)
