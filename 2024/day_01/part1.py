@@ -3,7 +3,7 @@
 first_list = []
 second_list = []
 
-raw_data = open("input.txt").read().splitlines()
+raw_data = open("input.txt", 'r', encoding='utf-8').read().splitlines()
 
 for line in raw_data:
     val_a, val_b = list(map(int, line.split()))
